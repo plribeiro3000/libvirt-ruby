@@ -1,0 +1,11 @@
+= Libvirt-Ruby
+
+Rails gem to connect on a remote Server over ssh to access libvirt.
+
+== Install
+
+gem install libvirt-ruby # Not release yet.
+
+== Future
+
+Add Support for  a ton of thigs. =D
