@@ -1,6 +1,6 @@
 = Libvirt-Ruby
 
-Rails gem to connect on a remote Server over ssh to access libvirt.
+Rails gem to map functions from libvirt's library to ruby.
 
 == Install
 

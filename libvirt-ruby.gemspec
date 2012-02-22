@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = %q{Paulo Henrique Lopes Ribeiro}
   s.email       = %q{plribeiro3000@gmail.com}
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Ruby bindings for the Libvirt C Library}
+  s.description = %q{Access Libvirt's C Library through ruby classes and methods}
 
   s.rubyforge_project = "libvirt-ruby"
 
@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = %w(lib)
 
-  s.add_runtime_dependency "net-ssh"
+  s.add_runtime_dependency "ffi"
   s.add_development_dependency "rspec"
 end
