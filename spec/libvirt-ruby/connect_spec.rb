@@ -1,31 +1,24 @@
 require 'spec_helper'
 
 describe Libvirt::Ruby::Connect do
-  context "on initialization" do
-    it "should set @klass" do
-      Libvirt::Ruby::Connect.new.klass.should == 'virConnect'
-    end
-  end
+  let(:connect) { Libvirt::Ruby::Connect }
 
-  context "on a non existent method" do
-    it "should concat it to @klass" do
-      Libvirt::Ruby::Connect.new.ptr.klass.should == 'virConnectPtr'
+  context "when calling method #dispatcher" do
+    before :each do
+      connect.stub(:attach_function).with("virConnectClose", "virConnectClose", [], :int).and_return(true)
+      connect.stub(:send).with("virConnectClose", [])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::Connect.new
-      obj.ptr.should == obj
-    end
-  end
-
-  context "with 2 methods not existent chained" do
-    it "should concat both to @klass" do
-      Libvirt::Ruby::Connect.new.domain.event.klass.should == 'virConnectDomainEvent'
+    after :each do
+      connect.dispatcher('Close', [:int])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::Connect.new
-      obj.domain.event.should == obj
+    it "should attach it as a binding for C's function" do
+      connect.should_receive(:attach_function).with("virConnectClose", "virConnectClose", [], :int).and_return(true)
+    end
+
+    it "should call the new attached method" do
+      connect.should_receive(:send).with("virConnectClose", [])
     end
   end
 end

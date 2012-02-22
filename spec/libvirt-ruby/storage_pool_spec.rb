@@ -1,31 +1,24 @@
 require 'spec_helper'
 
 describe Libvirt::Ruby::StoragePool do
-  context "on initialization" do
-    it "should set @klass" do
-      Libvirt::Ruby::StoragePool.new.klass.should == 'virStoragePool'
-    end
-  end
+  let(:storage_pool) { Libvirt::Ruby::StoragePool }
 
-  context "on a non existent method" do
-    it "should concat it to @klass" do
-      Libvirt::Ruby::StoragePool.new.ptr.klass.should == 'virStoragePoolPtr'
+  context "when calling method #dispatcher" do
+    before :each do
+      storage_pool.stub(:attach_function).with("virStoragePoolRefresh", "virStoragePoolRefresh", [], :int).and_return(true)
+      storage_pool.stub(:send).with("virStoragePoolRefresh", [])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::StoragePool.new
-      obj.ptr.should == obj
-    end
-  end
-
-  context "with 2 methods not existent chained" do
-    it "should concat both to @klass" do
-      Libvirt::Ruby::StoragePool.new.get.autostart.klass.should == 'virStoragePoolGetAutostart'
+    after :each do
+      storage_pool.dispatcher('Refresh', [:int])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::StoragePool.new
-      obj.get.autostart.should == obj
+    it "should attach it as a binding for C's function" do
+      storage_pool.should_receive(:attach_function).with("virStoragePoolRefresh", "virStoragePoolRefresh", [], :int).and_return(true)
+    end
+
+    it "should call the new attached method" do
+      storage_pool.should_receive(:send).with("virStoragePoolRefresh", [])
     end
   end
 end

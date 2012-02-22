@@ -1,31 +1,24 @@
 require 'spec_helper'
 
 describe Libvirt::Ruby::Domain do
-  context "on initialization" do
-    it "should set @klass" do
-      Libvirt::Ruby::Domain.new.klass.should == 'virDomain'
-    end
-  end
+  let(:domain) { Libvirt::Ruby::Domain }
 
-  context "on a non existent method" do
-    it "should concat it to @klass" do
-      Libvirt::Ruby::Domain.new.ptr.klass.should == 'virDomainPtr'
+  context "when calling method #dispatcher" do
+    before :each do
+      domain.stub(:attach_function).with("virDomainCreate", "virDomainCreate", [], :int).and_return(true)
+      domain.stub(:send).with("virDomainCreate", [])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::Domain.new
-      obj.ptr.should == obj
-    end
-  end
-
-  context "with 2 methods not existent chained" do
-    it "should concat both to @klass" do
-      Libvirt::Ruby::Domain.new.block.stats.klass.should == 'virDomainBlockStats'
+    after :each do
+      domain.dispatcher('Create', [:int])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::Domain.new
-      obj.block.stats.should == obj
+    it "should attach it as a binding for C's function" do
+      domain.should_receive(:attach_function).with("virDomainCreate", "virDomainCreate", [], :int).and_return(true)
+    end
+
+    it "should call the new attached method" do
+      domain.should_receive(:send).with("virDomainCreate", [])
     end
   end
 end

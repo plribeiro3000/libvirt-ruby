@@ -1,15 +1,10 @@
 module Libvirt
   module Ruby
-    class Domain
-      attr_accessor :klass
-
-      def initialize
-        @klass = "virDomain"
-      end
-
-      def method_missing(method)
-        @klass << method.to_s.downcase.capitalize
-        self
+    module Domain
+      def self.dispatcher(method, args = [])
+        return_type = args.delete(args.last)
+        attach_function ("virDomain" + method.to_s), ("virDomain" + method.to_s), args, return_type
+        send(("virDomain" + method.to_s), args)
       end
     end
   end

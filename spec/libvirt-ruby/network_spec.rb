@@ -1,31 +1,24 @@
 require 'spec_helper'
 
 describe Libvirt::Ruby::Network do
-  context "on initialization" do
-    it "should set @klass" do
-      Libvirt::Ruby::Network.new.klass.should == 'virNetwork'
-    end
-  end
+  let(:network) { Libvirt::Ruby::Network }
 
-  context "on a non existent method" do
-    it "should concat it to @klass" do
-      Libvirt::Ruby::Network.new.ptr.klass.should == 'virNetworkPtr'
+  context "when calling method #dispatcher" do
+    before :each do
+      network.stub(:attach_function).with("virNetworkRef", "virNetworkRef", [], :int).and_return(true)
+      network.stub(:send).with("virNetworkRef", [])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::Network.new
-      obj.ptr.should == obj
-    end
-  end
-
-  context "with 2 methods not existent chained" do
-    it "should concat both to @klass" do
-      Libvirt::Ruby::Network.new.device.ref.klass.should == 'virNetworkDeviceRef'
+    after :each do
+      network.dispatcher('Ref', [:int])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::Network.new
-      obj.device.ref.should == obj
+    it "should attach it as a binding for C's function" do
+      network.should_receive(:attach_function).with("virNetworkRef", "virNetworkRef", [], :int).and_return(true)
+    end
+
+    it "should call the new attached method" do
+      network.should_receive(:send).with("virNetworkRef", [])
     end
   end
 end

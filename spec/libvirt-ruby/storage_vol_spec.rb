@@ -1,31 +1,24 @@
 require 'spec_helper'
 
 describe Libvirt::Ruby::StorageVol do
-  context "on initialization" do
-    it "should set @klass" do
-      Libvirt::Ruby::StorageVol.new.klass.should == 'virStorageVol'
-    end
-  end
+  let(:storage_vol) { Libvirt::Ruby::StorageVol }
 
-  context "on a non existent method" do
-    it "should concat it to @klass" do
-      Libvirt::Ruby::StorageVol.new.ptr.klass.should == 'virStorageVolPtr'
+  context "when calling method #dispatcher" do
+    before :each do
+      storage_vol.stub(:attach_function).with("virStorageVolResize", "virStorageVolResize", [], :int).and_return(true)
+      storage_vol.stub(:send).with("virStorageVolResize", [])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::StorageVol.new
-      obj.ptr.should == obj
-    end
-  end
-
-  context "with 2 methods not existent chained" do
-    it "should concat both to @klass" do
-      Libvirt::Ruby::StorageVol.new.wipe.pattern.klass.should == 'virStorageVolWipePattern'
+    after :each do
+      storage_vol.dispatcher('Resize', [:int])
     end
 
-    it "should return self" do
-      obj = Libvirt::Ruby::StorageVol.new
-      obj.wipe.pattern.should == obj
+    it "should attach it as a binding for C's function" do
+      storage_vol.should_receive(:attach_function).with("virStorageVolResize", "virStorageVolResize", [], :int).and_return(true)
+    end
+
+    it "should call the new attached method" do
+      storage_vol.should_receive(:send).with("virStorageVolResize", [])
     end
   end
 end

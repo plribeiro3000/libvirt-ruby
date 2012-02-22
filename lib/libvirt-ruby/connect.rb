@@ -1,15 +1,10 @@
 module Libvirt
   module Ruby
-    class Connect
-      attr_accessor :klass
-
-      def initialize
-        @klass = "virConnect"
-      end
-
-      def method_missing(method)
-        @klass << method.to_s.downcase.capitalize
-        self
+    module Connect
+      def self.dispatcher(method, args = [])
+        return_type = args.delete(args.last)
+        attach_function ("virConnect" + method.to_s), ("virConnect" + method.to_s), args, return_type
+        send(("virConnect" + method.to_s), args)
       end
     end
   end

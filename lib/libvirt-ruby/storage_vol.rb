@@ -1,15 +1,10 @@
 module Libvirt
   module Ruby
-    class StorageVol
-      attr_accessor :klass
-
-      def initialize
-        @klass = "virStorageVol"
-      end
-
-      def method_missing(method)
-        @klass << method.to_s.downcase.capitalize
-        self
+    module StorageVol
+      def self.dispatcher(method, args = [])
+        return_type = args.delete(args.last)
+        attach_function ("virStorageVol" + method.to_s), ("virStorageVol" + method.to_s), args, return_type
+        send(("virStorageVol" + method.to_s), args)
       end
     end
   end
