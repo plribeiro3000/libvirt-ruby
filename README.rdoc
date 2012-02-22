@@ -4,7 +4,19 @@ Rails gem to map functions from libvirt's library to ruby.
 
 == Install
 
-gem install libvirt-ruby # Not released yet.
+gem install libvirt-ruby
+
+== Usage
+
+You should one of the classes defined and call method dispatcher passing parameters:
+ first -> the method just like the one from Libvirt in C as a string
+ second -> the args of the function in C in the same order
+
+Your second parameter must be an array where the last value is a symbol of what the function should return.
+
+== Experimental
+
+This Gem still experimental, so if you have somre problem, feel free to create a new issue.
 
 == Future
 
