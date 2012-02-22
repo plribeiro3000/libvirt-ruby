@@ -1,11 +1,11 @@
-= Libvirt-Ruby
+= Libvirt-Ruby {<img src="https://secure.travis-ci.org/plribeiro3000/libvirt-ruby.png" />}[http://travis-ci.org/plribeiro3000/libvirt-ruby]
 
 Rails gem to map functions from libvirt's library to ruby.
 
 == Install
 
-gem install libvirt-ruby # Not release yet.
+gem install libvirt-ruby # Not released yet.
 
 == Future
 
-Add Support for  a ton of thigs. =D
+Add Support for a ton of thigs. =D
