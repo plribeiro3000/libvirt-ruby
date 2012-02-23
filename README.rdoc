@@ -21,3 +21,7 @@ This Gem still experimental, so if you have somre problem, feel free to create a
 == Future
 
 Add Support for a ton of thigs. =D
+
+== Contribute
+
+Fork the project and send me a Pull Request. =D
