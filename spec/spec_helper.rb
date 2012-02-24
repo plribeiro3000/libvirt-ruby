@@ -1,4 +1,5 @@
 require "rubygems"
 require "rspec"
+require "ffi"
 
-Dir.glob(File.dirname(__FILE__) + "/../lib/libvirt-ruby/**/*.rb").each { |file| require file }
+require File.dirname(__FILE__) + "/../lib/libvirt-ruby.rb"

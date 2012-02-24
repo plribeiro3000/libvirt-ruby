@@ -6,21 +6,36 @@ Rails gem to map functions from libvirt's library to ruby.
 
 gem install libvirt-ruby
 
+== Dependencies
+
+This gem has as a dependencie the libvirt package. Google it and u will find how to install it on your distro.
+
 == Usage
 
 You should one of the classes defined and call method dispatcher passing parameters:
- first -> the method just like the one from Libvirt in C as a string
+ first -> the method just like the one from Libvirt in C as a string except the vir and the name of the Class just like 'Close' from 'virConnectClose'
  second -> the args of the function in C in the same order
 
 Your second parameter must be an array where the last value is a symbol of what the function should return.
 
 == Experimental
 
-This Gem still experimental, so if you have somre problem, feel free to create a new issue.
+This Gem still experimental, so if you have some problem, feel free to create a new issue.
+
+== Tests
+
+The test have been made only on Debian Squeeze. When it got a bit larger, i will test it for another distros.
+Give it a try in another distro and let me know if it works.
 
 == Future
 
 Add Support for a ton of thigs. =D
+Improve a lot of things:
+ * Use method missing and deprecate dispatcher.
+ * Find a way to make the test suit pass without the lib. By now it only works if u have it installed.
+ * Create more Exceptions for another type of errors.
+ * Create pages on Wiki teaching how to isntall libvirt on each distro.
+ ...
 
 == Contribute
 
