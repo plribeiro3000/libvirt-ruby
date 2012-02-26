@@ -1,4 +1,4 @@
-= Libvirt-Ruby
+= Libvirt-Ruby  {<img src="https://secure.travis-ci.org/plribeiro3000/libvirt-ruby.png" />}[http://travis-ci.org/plribeiro3000/libvirt-ruby]
 
 Rails gem to map functions from libvirt's library to ruby.
 
@@ -15,8 +15,7 @@ This gem has as a dependencie the libvirt package. Google it and u will find how
 You should one of the classes defined and call method dispatcher passing parameters:
  first -> the method just like the one from Libvirt in C as a string except the vir and the name of the Class just like 'Close' from 'virConnectClose'
  second -> the args of the function in C in the same order
-
-Your second parameter must be an array where the last value is a symbol of what the function should return.
+ third -> a symbol of the retun of the function.
 
 == Experimental
 

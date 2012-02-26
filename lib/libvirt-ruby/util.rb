@@ -1,13 +1,17 @@
 module Libvirt
   module Ruby
-    module Util
-      def dispatcher(method, args = [])
+    class Util
+      extend FFI::Library
+
+      def self.dispatcher(method, args = [], return_type)
         begin
-          return_type = args.delete(args.last)
+          ffi_lib "libvirt"
           attach_function (self.klass + method.to_s), (self.klass + method.to_s), args, return_type
-          send((self.klass + method.to_s), args)
+          send (self.klass + method.to_s), args
         rescue FFI::NotFoundError
           raise Libvirt::Ruby::Exceptions::InvalidFunction.new(self.klass + method.to_s)
+        rescue LoadError
+          raise Libvirt::Ruby::Exceptions::MissingLib
         end
       end
     end
