@@ -3,7 +3,7 @@ module Libvirt
     class Util
       extend FFI::Library
 
-      def self.dispatcher(method, args = [], return_type)
+      def self.dispatcher(method, args = [], return_type = nil)
         begin
           ffi_lib "libvirt"
           attach_function (self.klass + method.to_s), (self.klass + method.to_s), args, return_type
