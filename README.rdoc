@@ -8,7 +8,7 @@ gem install libvirt-ruby
 
 == Dependencies
 
-This gem has as a dependencie the libvirt package. Google it and u will find how to install it on your distro.
+This gem has as a dependency the libvirt package. Google it and u will find how to install it on your distro.
 
 == Usage
 
@@ -43,4 +43,5 @@ Improve a lot of things:
 
 == Contribute
 
-Fork the project and send me a Pull Request. =D
+Fork the project and send me a Pull Request. Your code must be well tested against at least the versions im testing: 1.8.7, 1.9.2 and 1.9.3
+I already have created rake tasks to test on each ruby version. For more info just look inside Rakefile.
