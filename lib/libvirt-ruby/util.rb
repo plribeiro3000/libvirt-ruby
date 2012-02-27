@@ -27,7 +27,7 @@ module Libvirt
       private
 
       def self.not_direct_call?
-        caller[1][/`.*'/][1..-2] == 'method_missing'
+        caller[1][/`.*'/] and caller[1][/`.*'/][1..-2] == 'method_missing'
       end
     end
   end
