@@ -3,12 +3,34 @@ require "ffi"
 
 module Libvirt
   module Ruby
-    autoload :Connect, 'libvirt-ruby/connect'
-    autoload :Domain, 'libvirt-ruby/domain'
     autoload :Exceptions, 'libvirt-ruby/exceptions'
-    autoload :Network, 'libvirt-ruby/network'
-    autoload :StoragePool, 'libvirt-ruby/storage_pool'
-    autoload :StorageVol, 'libvirt-ruby/storage_vol'
-    autoload :Util, 'libvirt-ruby/util'
+
+    extend FFI::Library
+
+    def self.method_missing(method, *args)
+      args.flatten!
+      return_type = args.delete(args.last)
+      raise Libvirt::Ruby::Exceptions::NoReturnParameter unless return_type
+      dispatcher(method, args, return_type)
+    end
+
+    private
+
+    def self.dispatcher(method, args = [], return_type = nil)
+      raise Libvirt::Ruby::Exceptions::WrongCall unless not_direct_call?
+      begin
+        ffi_lib "libvirt"
+        attach_function method.to_s, method.to_s, args, return_type
+        send method.to_s, args
+      rescue FFI::NotFoundError
+        raise Libvirt::Ruby::Exceptions::InvalidFunction.new(method.to_s)
+      rescue LoadError
+        raise Libvirt::Ruby::Exceptions::MissingLib
+      end
+    end
+
+    def self.not_direct_call?
+      caller[1][/`.*'/] and caller[1][/`.*'/][1..-2] == 'method_missing'
+    end
   end
 end

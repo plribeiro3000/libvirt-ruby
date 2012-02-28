@@ -12,16 +12,10 @@ This gem has as a dependency the libvirt package. Google it and u will find how 
 
 == Usage
 
-You should use one of the classes defined and call the method directly:
- Libvirt::Ruby::Connect.Close([:int])
+You should call the c function directly on the module with the sanem name:
+ Libvirt::Ruby.virConnectClose([:int])
 
 The parameter of the function should be an array where the last instance is the return of the C function.
-
-
-The old method dispatcher still can be called, but is now deprecated. Call dispatcher passing as parameters:
- first -> the method just like the one from Libvirt in C as a string except the vir and the name of the Class just like 'Close' from 'virConnectClose'
- second -> the args of the function in C in the same order
- third -> a symbol of the retun of the function.
 
 == Experimental
 
@@ -36,8 +30,6 @@ Give it a try in another distro and let me know if it works.
 
 Add Support for a ton of thigs. =D
 Improve a lot of things:
- * Remove all classes and make gem wotk without them. Using Just one class: Libvirt::Ruby
- * Create more Exceptions for another type of errors.
  * Create pages on Wiki teaching how to install libvirt on several distros.
  ...
 
