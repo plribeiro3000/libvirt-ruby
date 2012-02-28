@@ -1,6 +1,6 @@
 = Libvirt-Ruby  {<img src="https://secure.travis-ci.org/plribeiro3000/libvirt-ruby.png" />}[http://travis-ci.org/plribeiro3000/libvirt-ruby]
 
-Rails gem to map functions from libvirt's library to ruby.
+Rails gem to map functions from libvirt's library to ruby on the fly.
 
 == Install
 
@@ -12,28 +12,24 @@ This gem has as a dependency the libvirt package. Google it and u will find how 
 
 == Usage
 
-You should call the c function directly on the module with the sanem name:
+You may define pointers, callbacks and enums using the FFI gem. Since the main module of this gem extend it,
+you can call directly on it, just like:
+ Libvirt::Ruby.typedef :pointer, :pointer
+ Libvirt::Ruby.callback :virFreeCallback, [:pointer], :void
+ Libvirt::Ruby.enum :virStorageVolType, [:file, :block]
+
+You should call the c function directly with the same name to attach it to the module:
  Libvirt::Ruby.virConnectClose([:int])
 
-The parameter of the function should be an array where the last instance is the return of the C function.
+The only parameter of the function should be an array passing as arguments all the variables that the c function needs
+ and the return of the C function. After call the first time to attach, you can call the method on Libvirt::Ruby,
+ passing this time the real values if needed.
+ Libvirt::Ruby.virConnectClose
 
-== Experimental
+== Bugs
 
-This Gem still experimental, so if you have some problem, feel free to create a new issue.
-
-== Tests
-
-The test have been made only on Debian Squeeze. When it got a bit larger, i will test it for another distros.
-Give it a try in another distro and let me know if it works.
-
-== Future
-
-Add Support for a ton of thigs. =D
-Improve a lot of things:
- * Create pages on Wiki teaching how to install libvirt on several distros.
- ...
+This Gem still in development, so if you have some problem, feel free to create a new issue.
 
 == Contribute
 
-Fork the project and send me a Pull Request. Your code must be well tested against at least the versions im testing: 1.8.7, 1.9.2 and 1.9.3
-I already have created rake tasks to test on each ruby version. For more info just look inside Rakefile.
+Fork the project, make your changes and send me a Pull Request.
