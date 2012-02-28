@@ -28,10 +28,6 @@ describe Libvirt::Ruby do
         it "should attach it as a binding for C's function" do
           libvirt.should_receive(:attach_function).with("virConnectClose", "virConnectClose", [], :int).and_return(true)
         end
-
-        it "should call the new attached method" do
-          libvirt.should_receive(:send).with("virConnectClose", [])
-        end
       end
 
       context "and the function is not a valid one" do

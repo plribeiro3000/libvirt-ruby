@@ -21,7 +21,6 @@ module Libvirt
       begin
         ffi_lib "libvirt"
         attach_function method.to_s, method.to_s, args, return_type
-        send method.to_s, args
       rescue FFI::NotFoundError
         raise Libvirt::Ruby::Exceptions::InvalidFunction.new(method.to_s)
       rescue LoadError
