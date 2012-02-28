@@ -2,11 +2,9 @@
 
 Rails gem to map functions from libvirt's library to ruby on the fly.
 
-Source: http://github.com/plribeiro3000/libvirt-ruby
-
-Issues: http://github.com/plribeiro3000/libvirt-ruby/issues
-
-Wiki: http://github.com/plribeiro3000/libvirt-ruby/wiki
+* Source: http://github.com/plribeiro3000/libvirt-ruby
+* Issues: http://github.com/plribeiro3000/libvirt-ruby/issues
+* Wiki: http://github.com/plribeiro3000/libvirt-ruby/wiki
 
 == Install
 
