@@ -32,7 +32,7 @@ passing this time the real values if needed.
 
 == Bugs
 
-This Gem still in development, so if you have some problem, feel free to create a new issue.
+This Gem is released but not all case was tested yet, so if you have some problem, feel free to create a new issue.
 
 == Contribute
 
