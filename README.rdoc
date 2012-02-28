@@ -22,8 +22,8 @@ You should call the c function directly with the same name to attach it to the m
  Libvirt::Ruby.virConnectClose([:int])
 
 The only parameter of the function should be an array passing as arguments all the variables that the c function needs
- and the return of the C function. After call the first time to attach, you can call the method on Libvirt::Ruby,
- passing this time the real values if needed.
+and the return of the C function. After call the first time to attach, you can call the method on Libvirt::Ruby,
+passing this time the real values if needed.
  Libvirt::Ruby.virConnectClose
 
 == Bugs
