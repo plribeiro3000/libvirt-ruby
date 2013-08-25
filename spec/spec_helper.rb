@@ -1,5 +1,7 @@
-require "rubygems"
-require "rspec"
-require "ffi"
+require 'rspec'
+require 'ffi'
+require 'coveralls'
 
-require File.dirname(__FILE__) + "/../lib/libvirt-ruby.rb"
+Coveralls.wear!
+
+require "#{File.dirname(__FILE__)}/../lib/libvirt-ruby.rb"
