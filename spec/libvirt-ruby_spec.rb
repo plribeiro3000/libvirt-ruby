@@ -42,8 +42,13 @@ describe Libvirt::Ruby do
     end
 
     context "without libvirt installed" do
+      before :each do
+        libvirt.stub(:attach_function).with("virConnectAbc", "virConnectAbc", [], :int)
+        libvirt.stub(:ffi_lib).and_raise(LoadError)
+      end
+
       it "should raise an exception" do
-        lambda { libvirt.virConnectAbc([:int])  }.should raise_error(Libvirt::Ruby::Exceptions::MissingLib)
+        lambda { libvirt.virConnectAbc([:int]) }.should raise_error(Libvirt::Ruby::Exceptions::MissingLib)
       end
     end
   end
