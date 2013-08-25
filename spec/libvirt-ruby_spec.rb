@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe Libvirt::Ruby do
-  let(:libvirt) { Libvirt::Ruby }
+describe Libvirt::Base do
+  let(:libvirt) { Libvirt::Base.new }
 
   context "when calling any libvirt function directly" do
     context "without a return type specified" do
       it "should raise an error" do
-        lambda { libvirt.virConnectClose }.should raise_error(Libvirt::Ruby::Exceptions::NoReturnParameter)
+        lambda { libvirt.virConnectClose }.should raise_error(Libvirt::Exceptions::NoReturnParameter)
       end
     end
 
@@ -36,7 +36,7 @@ describe Libvirt::Ruby do
         end
 
         it "should raise an exception" do
-          lambda { libvirt.virConnectAbc([:int]) }.should raise_error(Libvirt::Ruby::Exceptions::InvalidFunction)
+          lambda { libvirt.virConnectAbc([:int]) }.should raise_error(Libvirt::Exceptions::InvalidFunction)
         end
       end
     end
@@ -48,14 +48,14 @@ describe Libvirt::Ruby do
       end
 
       it "should raise an exception" do
-        lambda { libvirt.virConnectAbc([:int]) }.should raise_error(Libvirt::Ruby::Exceptions::MissingLib)
+        lambda { libvirt.virConnectAbc([:int]) }.should raise_error(Libvirt::Exceptions::MissingLib)
       end
     end
   end
 
   context "when calling method #dispatcher directly" do
     it "should raise an exception" do
-      lambda { libvirt.dispatcher('virConnectClose', [], :int) }.should raise_error(Libvirt::Ruby::Exceptions::WrongCall)
+      lambda { libvirt.send('dispatcher', 'virConnectClose', [], :int) }.should raise_error(Libvirt::Exceptions::WrongCall)
     end
   end
 end
