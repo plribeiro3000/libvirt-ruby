@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "libvirt-ruby/version"
+require "libvirt/version"
 
 Gem::Specification.new do |gem|
   gem.name        = "libvirt-ruby"
-  gem.version     = Libvirt::Ruby::VERSION
+  gem.version     = Libvirt::VERSION
   gem.authors     = %q{Paulo Henrique Lopes Ribeiro}
   gem.email       = %q{plribeiro3000@gmail.com}
   gem.summary     = %q{Ruby bindings for the Libvirt C Library on the fly!}

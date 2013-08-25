@@ -1,9 +1,4 @@
-require "libvirt-ruby/version"
-require "ffi"
-
 module Libvirt
-  autoload :Exceptions, 'libvirt-ruby/exceptions'
-
   class Base
     extend FFI::Library
 
