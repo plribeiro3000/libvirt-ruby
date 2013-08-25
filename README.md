@@ -16,25 +16,39 @@ Or install it yourself as:
 
     $ gem install libvirt-ruby
     
-== Dependencies
+## Dependencies
 
 This gem has as a dependency the libvirt package. Google it and u will find how to install it on your distro.
 
-== Usage
+## Usage
 
 You may define pointers, callbacks and enums using the FFI gem. Since the main module of this gem extend it,
 you can call directly on it, just like:
- Libvirt::Ruby.typedef :pointer, :pointer
- Libvirt::Ruby.callback :virFreeCallback, [:pointer], :void
- Libvirt::Ruby.enum :virStorageVolType, [:file, :block]
+
+```ruby
+Libvirt::Base.new.typedef :pointer, :pointer
+Libvirt::Base.new.callback :virFreeCallback, [:pointer], :void
+Libvirt::Base.new.enum :virStorageVolType, [:file, :block]
+```
 
 You should call the c function directly with the same name to attach it to the module:
- Libvirt::Ruby.virConnectClose([:int])
+
+```ruby
+Libvirt::Base.new.virConnectClose([:int])
+```
 
 The only parameter of the function should be an array passing as arguments all the variables that the c function needs
 and the return of the C function. After call the first time to attach, you can call the method on Libvirt::Ruby,
 passing this time the real values if needed.
- Libvirt::Ruby.virConnectClose    
+
+```ruby
+Libvirt::Base.new.virConnectClose
+```
+
+## Migrating to 2.0
+
+To make easy developing on libvirt-ruby-mapping, the module ruby was changed to a class. And a class can't be named ruby,
+so it is necessary to replace all your calls from Libvirt::Ruby to Libvirt::Base.new.
 
 ## Mantainers
 [@plribeiro3000](https://github.com/plribeiro3000)
