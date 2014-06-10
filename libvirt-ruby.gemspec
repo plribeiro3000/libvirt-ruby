@@ -9,6 +9,7 @@ Gem::Specification.new do |gem|
   gem.email       = %q{plribeiro3000@gmail.com}
   gem.summary     = %q{Ruby bindings for the Libvirt C Library on the fly!}
   gem.description = %q{Access Libvirt's C Library through ruby bindings defined on the fly!}
+  gem.license = 'MIT'
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
